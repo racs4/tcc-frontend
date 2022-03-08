@@ -1,6 +1,6 @@
 import { render } from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import './index.css';
+import "./index.css";
 import App from "./App";
 import Home from "./pages/home/Home";
 import ICD from "./pages/icd/ICD";
