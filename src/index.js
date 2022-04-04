@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import Home from "./pages/home/Home";
 import ICD from "./pages/icd/ICD";
+import convert from "color-convert";
 
 const rootElement = document.getElementById("root");
 render(

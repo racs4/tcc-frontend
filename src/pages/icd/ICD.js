@@ -1,48 +1,93 @@
-import "./ICD.css";
 import { useState } from "react";
-import Image from "../../components/image/Image";
-import Button from "../../components/button/Button";
+import Instructions from "../instructions/Instructions";
+import ColorFinder from "../../components/color-finder/ColorFinder";
+import {
+  getDistanceColors,
+  getDistanceLuminanceColors,
+  getMiddleLabColor,
+  getMiddleLuminanceColors,
+} from "../../utils/lab";
+import { fetchUrl } from "../../fetch";
+import ImageSubstitution from "../image-substitution/ImageSubstitution";
 
-const text = ["◠", "◝", ")", "◞", "◡", "◟", "(", "◜"];
+export default function ICD({}) {
+  const [actualScreen, setActualScreen] = useState(0);
+  const [points, setPoints] = useState([]);
 
-function DirectionButton({ direction, setAnswer }) {
-  return (
-    <button
-      className={`border-2 border-black hover:bg-slate-100 focus:bg-slate-200 rounded-md direction-button pos-${
-        direction + 1
-      }`}
-      onClick={setAnswer(direction)}
-    >
-      {text[direction]}
-    </button>
-  );
+  const whenAdvance = () => {
+    if (actualScreen < screens.length - 1) {
+      setActualScreen(actualScreen + 1);
+    } else {
+      fetchUrl("/ellipse", {
+        method: "POST",
+        data: {
+          points,
+        },
+      })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const storePoints = (colorPoint) => {
+    const [L, u, v] = colorPoint;
+    setPoints([...points, [u, v]]);
+  };
+
+  const screens = [
+    <Instructions whenAdvance={whenAdvance} />,
+    ...COLORS.map((color, i) => (
+      <ColorFinder
+        key={i}
+        initMin={BASE_COLOR}
+        initMax={color}
+        whenAdvance={whenAdvance}
+        findDistanceColors={
+          i < 6 ? getDistanceColors : getDistanceLuminanceColors
+        }
+        findMiddleColor={i < 6 ? getMiddleLabColor : getMiddleLuminanceColors}
+        storePoints={storePoints}
+      />
+    )),
+    // <ImageSubstitution />,
+  ];
+
+  return <main className="font-mono">{screens[actualScreen]}</main>;
 }
 
-function ICD() {
-  const [direction, setDirection] = useState(0);
-  const [answer, setAnswer] = useState(0);
+const BASE_COLOR = [50, 0, 0];
 
-  return (
-    <>
-      <div className="flex flex-wrap justify-center items-center icd min-h-screen h-64 space-x-5">
-        <Image
-          backgroundColor="#008000"
-          color="#ffff00"
-          direction={Math.floor(Math.random() * 8)}
-        />
-        <div
-          className="flex items-center justify-center flex-col space-y-2"
-        >
-          <p className="text-xl">Select what part is missing </p>
-          <div className="buttons">
-            {Array.from({ length: 8 }, (_, i) => (
-              <DirectionButton key={i} direction={i} setAnswer={setAnswer} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
+// CIELUV COORDS
+// https://sites.oxy.edu/clint/physio/article/cambridgecolourtesthandbook.pdf
+// https://www.researchgate.net/publication/348080962_A_content-dependent_Daltonization_algorithm_for_colour_vision_deficiencies_based_on_lightness_and_chroma_information
+// 0.678, 0.501
+// -1.217, 0.782
+// 0.257, 0
 
-export default ICD;
+// xyY COORDS
+// https://www.researchgate.net/figure/Copunctal-points-of-dichromate-confusion-lines_tbl1_228970453
+// 0.7465, 0.2535
+// 1.40, -0.40
+// 0.1748, 0
+
+const PROTANOPE_CONFUSION = [50, 298.0697, 21.5816];
+const DEUTERANOPE_CONFUSION = [50, -121.7, 78.2];
+const TRITANOPE_CONFUSION = [50, 25.7, 0];
+
+const PROTANOPE_CONFUSION_AWAY = [50, -298.0697, -21.5816];
+const DEUTERANOPE_CONFUSION_AWAY = [50, 121.7, -78.2];
+const TRITANOPE_CONFUSION_AWAY = [50, -25.7, 0];
+
+const MAX_LUMINANCE = [100, 0, 0];
+const MIN_LUMINANCE = [0, 0, 0];
+
+const COLORS = [
+  PROTANOPE_CONFUSION,
+  PROTANOPE_CONFUSION_AWAY,
+  DEUTERANOPE_CONFUSION,
+  DEUTERANOPE_CONFUSION_AWAY,
+  TRITANOPE_CONFUSION,
+  TRITANOPE_CONFUSION_AWAY,
+  MAX_LUMINANCE,
+  MIN_LUMINANCE,
+];

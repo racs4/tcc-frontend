@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import Button from "../../components/button/Button.js";
-
+import convert from "color-convert";
 function Home() {
   return (
     <>
-      <main className="flex flex-col justify-center items-center h-64 min-h-screen">
+      <main className="flex flex-col justify-center items-center h-64 min-h-screen font-mono">
         <div className="text-4xl mb-5">Web Icd</div>
         <Link to="/icd">
           <Button>Fazer Teste</Button>
