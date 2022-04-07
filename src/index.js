@@ -1,10 +1,10 @@
 import { render } from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
-import App from "./App";
+
 import Home from "./pages/home/Home";
 import ICD from "./pages/icd/ICD";
-import convert from "color-convert";
+import ColorConverter from "./pages/color-converter/ColorConverter";
 
 const rootElement = document.getElementById("root");
 render(
@@ -12,6 +12,7 @@ render(
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="icd" element={<ICD />} />
+      <Route path="converter" element={<ColorConverter />} />
     </Routes>
   </BrowserRouter>,
   rootElement
