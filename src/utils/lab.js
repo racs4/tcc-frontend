@@ -6,7 +6,7 @@ export function getMiddleLabColor(colorA, colorB) {
 
   // if (lA !== lB) throw "Color luminance doesn't match";
   // else
-  return [lA, ...getMiddlePoint([aA, bA], [aB, bB]).map(Math.floor)];
+  return [lA, ...getMiddlePoint([aA, bA], [aB, bB])];
 }
 
 export function getDistanceColors(colorA, colorB) {
@@ -29,5 +29,5 @@ export function getMiddleLuminanceColors(colorA, colorB) {
   const [lA, aA, bA] = colorA;
   const [lB, aB, bB] = colorB;
 
-  return [(lA + lB) / 2, aA, aB];
+  return [(lA + lB) / 2, aA, bB];
 }

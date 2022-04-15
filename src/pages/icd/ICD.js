@@ -55,6 +55,7 @@ export default function ICD({}) {
         }
         findMiddleColor={i < 6 ? getMiddleLabColor : getMiddleLuminanceColors}
         storePoints={i < 6 ? storePoints : storeLuminances}
+        distanceMultiplier={i < 6 ? 100 : 1}
       />
     )),
     <ImageSubstitution

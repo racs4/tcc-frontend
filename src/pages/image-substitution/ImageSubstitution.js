@@ -23,24 +23,35 @@ export default function ImageSubstitution({ points, luminances, circle }) {
 
   async function testColors() {
     try {
-      let userConfusionPoint = getConfusionUserPoint(
-        userEllipse.parameters,
-        circle
-      );
+      const resEllipse = await fetchUrl("/ellipse", {
+        method: "POST",
+        data: {
+          x: points.slice(0, 6).map((point) => point[0]),
+          y: points.slice(0, 6).map((point) => point[1]),
+        },
+      });
+      const ellipse = await resEllipse.json();
+      const resConfusion = await fetchUrl("/confusion-point", {
+        method: "POST",
+        data: {
+          ellipse: { ...ellipse.parameters }
+        }
+      });
+      const userConfusionPoint = (await resConfusion.json()).confusionPoint;
       const res = await fetchUrl(
         "/differentiation",
         {
           method: "POST",
           data: {
-            ellipse: { ...userEllipse.parameters },
+            ellipse: { ...ellipse.parameters },
             luminances: {
               top: luminances[0],
               bottom: luminances[1]
             },
             confusionPoint: userConfusionPoint[0],
             colors: {
-              1: convert.hex.luv(color1),
-              2: convert.hex.luv(color2),
+              1: convert.hex["lu'v'"].raw(color1),
+              2: convert.hex["lu'v'"].raw(color2),
             },
             x: points.slice(0, 6).map((point) => point[0]),
             y: points.slice(0, 6).map((point) => point[1]),
@@ -67,6 +78,7 @@ export default function ImageSubstitution({ points, luminances, circle }) {
             setColor1(e.target.value);
           }}
         ></input>
+        {convert.hex["lu'v'"].raw(color1).join()}
       </p>
       <p>
         Color 2:{" "}
@@ -77,6 +89,7 @@ export default function ImageSubstitution({ points, luminances, circle }) {
             setColor2(e.target.value);
           }}
         ></input>
+        {convert.hex["lu'v'"].raw(color2).join()}
       </p>
       <Button
         onClick={async () => {

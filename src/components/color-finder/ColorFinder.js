@@ -11,13 +11,14 @@ export default function ColorFinder({
   whenAdvance,
   findDistanceColors,
   findMiddleColor,
+  distanceMultiplier,
   storePoints,
 }) {
   console.log(initMax);
   const [min, setMin] = useState(initMin);
   const [max, setMax] = useState(initMax);
 
-  const maxCount = Math.ceil(Math.log2(findDistanceColors(initMin, initMax)));
+  const maxCount = Math.ceil(Math.log2(findDistanceColors(initMin, initMax) * distanceMultiplier)); // considering two decimal places
   const [count, setCount] = useState(0);
   console.log(maxCount);
   // initiate direction with a random number
@@ -40,10 +41,14 @@ export default function ColorFinder({
         <p className="text-center w-full">
           {count} of {maxCount}
         </p>
+        <p>
+          <div style={{ width: "50px", height: "50px", background: "#"+convert["lu'v'"].hex(circleColor) }}></div>
+          <div style={{ width: "50px", height: "50px", background: "#"+convert["lu'v'"].hex(backgroundColor) }}></div>
+        </p>
         <div className="flex flex-wrap justify-center items-center icd space-x-5">
           <Image
-            backgroundColor={"#" + convert.luv.hex(backgroundColor)}
-            color={"#" + convert.luv.hex(circleColor)}
+            backgroundColor={"#" + convert["lu'v'"].hex(backgroundColor)}
+            color={"#" + convert["lu'v'"].hex(circleColor)}
             direction={direction}
           />
           <div className="flex items-center justify-center flex-col space-y-2">

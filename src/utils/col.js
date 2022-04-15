@@ -1,4 +1,4 @@
-export const BASE_COLOR = [50, 0, 0];
+export const BASE_COLOR = [50, 0.19783982482140777, 0.46833630293240974];
 
 // CIELUV COORDS
 // https://sites.oxy.edu/clint/physio/article/cambridgecolourtesthandbook.pdf
@@ -13,16 +13,16 @@ export const BASE_COLOR = [50, 0, 0];
 // 1.40, -0.40
 // 0.1748, 0
 
-const PROTANOPE_CONFUSION = [50, 298.0697, 21.5816];
-const DEUTERANOPE_CONFUSION = [50, -121.7, 78.2];
-const TRITANOPE_CONFUSION = [50, 25.7, 0];
+const PROTANOPE_CONFUSION = [50, 0.678, 0.501];
+const DEUTERANOPE_CONFUSION = [50, -1.217, 0.782];
+const TRITANOPE_CONFUSION = [50, 0.257, 0.0];
 
-const PROTANOPE_CONFUSION_AWAY = [50, -298.0697, -21.5816];
-const DEUTERANOPE_CONFUSION_AWAY = [50, 121.7, -78.2];
-const TRITANOPE_CONFUSION_AWAY = [50, -25.7, 0];
+const PROTANOPE_CONFUSION_AWAY = [50, -1.102, 0.380];
+const DEUTERANOPE_CONFUSION_AWAY = [50, 0.620, 0.375];
+const TRITANOPE_CONFUSION_AWAY = [50, 0.031, 1.786];
 
-const MAX_LUMINANCE = [100, 0, 0];
-const MIN_LUMINANCE = [0, 0, 0];
+const MAX_LUMINANCE = [100, 0.19783982482140777, 0.46833630293240974];
+const MIN_LUMINANCE = [0, 0.19783982482140777, 0.46833630293240974];
 
 export const COLORS = [
   PROTANOPE_CONFUSION,
@@ -37,7 +37,7 @@ export const COLORS = [
 
 // generated in geogebra
 export const CIRCLE = {
-  t1: 133.2908,
-  t2: 380.81,
-  radius: Math.sqrt(156597.3918),
+  t1: -0.2393954889781,
+  t2: 0.844517965788,
+  radius: Math.sqrt(0.9596190760166),
 };

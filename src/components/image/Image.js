@@ -12,9 +12,9 @@ export default function Image({ backgroundColor, color, direction }) {
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.beginPath();
-    const radius = 2;
+    const radius = 3;
     const diameter = radius * 2;
-    const minOpacity = 0.7;
+    const minOpacity = 1;
 
     for (let i = 0; i < img.length; i++) {
       let row = img[i];
