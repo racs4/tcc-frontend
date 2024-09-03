@@ -1,26 +1,40 @@
 import { useRef, useEffect } from "react";
-import backgroundImage from "../../images/backgroundImage";
 import circle from "../../images/circleImage";
 import circleDiagonal from "../../images/circleDiagonalImage";
-import { addAlpha } from "../../utils/hex";
+import { randomL } from "../../utils/lab";
+import convert from "color-convert";
 
+/**
+ * @name Image
+ *
+ * @description
+ * Image component is a reusable component that can be used to create images in the application.
+ *
+ * @param {Object} params - The parameters of the image component.
+ * @param {string} params.backgroundColor - The background color.
+ * @param {string} params.color - The of the circle.
+ * @param {number} params.direction - The direction of the opening of the circle.
+ */
 export default function Image({ backgroundColor, color, direction }) {
   const canvasRef = useRef(null);
-  const canvasSize = 400;
+  const canvasSize = 350;
 
   function drawImage(img, colors, canvas, angle = null) {
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.beginPath();
-    const radius = 3;
+    const radius = 2;
     const diameter = radius * 2;
-    const minOpacity = 1;
+    const interval = 7;
 
     for (let i = 0; i < img.length; i++) {
       let row = img[i];
       for (let j = 0; j < row.length; j++) {
         if (img[j][i] !== 0) {
-          const color = colors[img[j][i] - 1];
+          let color = colors[img[j][i] - 1];
+          color = randomL(color, interval);
+          color = "#" + convert["lu'v'"].hex(color);
+
           let centerX = i * Math.floor(canvasSize / row.length) + diameter;
           let centerY = j * Math.floor(canvasSize / img.length) + diameter;
 
@@ -35,10 +49,7 @@ export default function Image({ backgroundColor, color, direction }) {
 
           context.beginPath();
           context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-          const fillColor = addAlpha(
-            color,
-            (1 - minOpacity) * Math.random() + minOpacity
-          );
+          const fillColor = color;
           context.fillStyle = fillColor;
           context.fill();
         }

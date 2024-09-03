@@ -1,10 +1,9 @@
 import { useState } from "react";
 import convert from "color-convert";
 
-export default function ColorConverter({}) {
+export default function ColorConverter() {
   const [luvColor, setLuvColor] = useState([0, 0, 0]);
   const [rgbColor, setRgbColor] = useState([119, 119, 119]);
-  const [xyYColor, setXyYColor] = useState([0, 0, 0]);
   const [XYZColor, setXYZColor] = useState([0, 0, 0]);
   const [keywordColor, setKeywordColor] = useState("blue");
 
@@ -83,8 +82,9 @@ export default function ColorConverter({}) {
         </div>
 
         <div className="space-x-5">
-          <span>Luv: {convert.rgb.luv(rgbColor).join()}</span>
-          <span>xyY: {convert.rgb.xyY(rgbColor).join()}</span>
+          <p>Luv: {convert.rgb.luv.raw(rgbColor).join()}</p>
+          <p>Lu'v': {convert.rgb["lu'v'"].raw(rgbColor).join()}</p>
+          <p>xyY: {convert.rgb.xyY(rgbColor).join()}</p>
         </div>
       </div>
 

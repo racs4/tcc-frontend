@@ -31,3 +31,9 @@ export function getMiddleLuminanceColors(colorA, colorB) {
 
   return [(lA + lB) / 2, aA, bB];
 }
+
+export function randomL(color, interval) {
+  const [l, a, b] = color;
+  const [min, max] = [Math.max(l - interval, 0), Math.min(l + interval, 100)];
+  return [Math.random() * (max - min) + min, a, b];
+}

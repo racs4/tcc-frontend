@@ -6,25 +6,25 @@ export default function Instructions({ whenAdvance }) {
       className="w-screen flex justify-center items-center flex-col"
       style={{ height: "max(100vh, 700px)" }}
     >
-      <h1 className="text-2xl">Instructions</h1>
+      <h1 className="text-2xl">Instruções</h1>
       <section className="my-5">
         <p>
-          1. Hello, this is a test to find the differentiation limits of your color
-          perception.
+          1. Este é um teste para encontrar o limite de diferenciação da sua percpeção de cores
         </p>
         <p>
-          2. Eight screens will be shown to you. Each of them will have several
-          balls forming a circle.
+          2. Oito imagens de calibração será mostrada à você. Cada uma delas tera várias bolinhas que formam um círculo.
         </p>
-        <p>3. This circle, however, will have one of its parts missing.</p>
-        <p>4. Your task will be to tell which direction this missing part is.</p>
+        <p>3. Este círculo, no entanto, contêm uma parte faltando.</p>
+        <p>4. Sua tarefa será dizer em qual direção está faltando essa parte. </p>
+        <p>5. Com isso se é encontrado o limite de diferenciação da sua percpeção de cores.</p>
+        <p>6. Um algoritmo então irá recolorir, se necessário, algumas imagens baseadas na sua percepção.</p>
       </section>
       <Button
         onClick={() => {
           whenAdvance();
         }}
       >
-        Advance
+        Avançar
       </Button>
     </div>
   );

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Button from "../../components/button/Button.js";
-import convert from "color-convert";
 function Home() {
   return (
     <>

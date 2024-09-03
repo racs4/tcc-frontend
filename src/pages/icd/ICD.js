@@ -12,7 +12,7 @@ import Instructions from "../instructions/Instructions";
 import ColorFinder from "../../components/color-finder/ColorFinder";
 import ImageSubstitution from "../image-substitution/ImageSubstitution";
 
-export default function ICD({}) {
+export default function ICD() {
   const [actualScreen, setActualScreen] = useState(0);
   const [points, setPoints] = useState([]);
   const [luminances, setLuminances] = useState([]);
@@ -33,18 +33,18 @@ export default function ICD({}) {
   };
 
   const storePoints = (colorPoint) => {
-    const [L, u, v] = colorPoint;
+    const [, u, v] = colorPoint;
     setPoints([...points, [u, v]]);
   };
 
   const storeLuminances = (colorLuminance) => {
-    const [L, u, v] = colorLuminance;
+    const [L,] = colorLuminance;
     setLuminances([...luminances, L]);
   };
 
   const screens = [
     <Instructions whenAdvance={whenAdvance} />,
-    ...COLORS.map((color, i) => (
+    ...COLORS.map(([color, title], i) => (
       <ColorFinder
         key={i}
         initMin={BASE_COLOR}
@@ -56,6 +56,7 @@ export default function ICD({}) {
         findMiddleColor={i < 6 ? getMiddleLabColor : getMiddleLuminanceColors}
         storePoints={i < 6 ? storePoints : storeLuminances}
         distanceMultiplier={i < 6 ? 100 : 1}
+        title={title}
       />
     )),
     <ImageSubstitution
